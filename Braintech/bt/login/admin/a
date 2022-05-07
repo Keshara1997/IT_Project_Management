@@ -1,0 +1,54 @@
+                                            <tr>
+                                            
+                                                <?php
+                                                    $Student_Id = $row1['StudentID'];
+                                                    $CHECK = 0;
+                                                    $results = $mysqli->query("SELECT * FROM tblessonpermission WHERE LPSTID = $Student_Id AND LPCID = $CID") or die($mysqli->error);
+                                                    while ($row = $results->fetch_assoc()):
+                                                        $CHECK = 1;
+                                                    endwhile;
+                                                    
+                                                    if ($CHECK == 0){      
+                                                ?>
+
+                                                <td><?php echo "<input type='checkbox' name='check[]' value='$Student_Id'>" ?> </td>
+                                                
+                                                <?php } else{ ?>
+                                                    <th></th>
+                                                <?php }?>
+
+                                                <td><?php echo $row1['STID']; ?> 
+                                                    <?php 
+                                                        if ($row1['ACTIVE'] == 'DISABLE'){
+                                                            echo "<span class='badge badge-rounded badge-sm badge-danger'>Disable</span>";
+                                                        }else {
+                                                            echo "<span class='badge badge-rounded badge-sm badge-success'>Active</span>";
+                                                        }
+                                                    ?>
+                                                </td>
+                                                <td><?php echo $row1['Fname']; ?>  <?php echo $row1['Lname']; ?> </td>
+                                                <td><?php echo $row1['BIRTHDAY']; ?></td>
+                                                <td><?php echo $row1['Address']; ?></td>
+                                                <td><?php echo $row1['MobileNo']; ?></td>
+                                                <td>
+                                                <?php
+                                                    $Student_Id = $row1['StudentID'];
+                                                    $Student_Id = test_input($Student_Id);
+                                                    $Student_Id = mysqli_real_escape_string($mysqli,$Student_Id);
+
+                                                    $CHECK = 0;
+                                                    $results = $mysqli->query("SELECT * FROM tblessonpermission WHERE LPSTID = $Student_Id AND LPCID = $CID") or die($mysqli->error);
+                                                    while ($row = $results->fetch_assoc()):
+                                                        $CHECK = 1;
+                                                    endwhile;
+                                                    
+                                                    if ($CHECK == 0){      
+                                                ?>
+                                                    <a href="admin/action/StudentLessonController.php?id=<?php echo $row1['StudentID']; ?>&action=add&LessonID=<?php echo $lessonID; ?>"><button class="btn btn-opacity-primary btn-sm" type="button">Give Access</button></a>
+                                                <?php }else{ ?>
+                                                    <a href="admin/action/StudentLessonController.php?id=<?php echo $row1['StudentID']; ?>&action=delete&LessonID=<?php echo $lessonID; ?>"><button class="btn btn-opacity-danger btn-sm" type="button">Remove Access</button></a>
+                                                <?php }?>
+
+                                                </td>
+                                            </tr>
+                                            <?php endwhile; ?>  
