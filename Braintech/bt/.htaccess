@@ -1,0 +1,12 @@
+RewriteEngine On
+
+
+
+RewriteRule ^AboutUs$ about.php [NC,L]
+RewriteRule ^Courses$ course.php [NC,L]
+RewriteRule ^Teachers$ teachers.php [NC,L]
+RewriteRule ^Contact$ contact.php [NC,L]
+RewriteRule ^Events$ event.php [NC,L]
+RewriteRule ^Home$ index.php [NC,L]
+
+
